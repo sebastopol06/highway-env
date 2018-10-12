@@ -104,6 +104,12 @@ class LineType:
     CONTINUOUS = 2
     CONTINUOUS_LINE = 3
 
+class PatternType:
+    """
+        A pattern for pedestrian pathcrossing.
+    """
+    NONE = 0
+    PARALLEL_LINES = 1
 
 class StraightLane(AbstractLane):
     """
@@ -217,3 +223,24 @@ class CircularLane(AbstractLane):
         longitudinal = self.direction*(phi - self.start_phase)*self.radius
         lateral = self.direction*(self.radius - r)
         return longitudinal, lateral
+
+class PedestrianLane(StraightLane):
+    """
+        A pedestrian straight pathway, assumes straight line
+    """
+    def __init__(self, start, end, width=StraightLane.DEFAULT_WIDTH):
+        """
+            New straight lane.
+        """
+        super(PedestrianLane, self).__init__(start, end, width)
+        self.start = np.array(start)
+        self.end = np.array(end)
+        self.width = width
+        self.heading = np.arctan2(self.end[1] - self.start[1], self.end[0] - self.start[0])
+        self.length = np.linalg.norm(self.end - self.start)
+        self.line_types = [LineType.CONTINUOUS, LineType.CONTINUOUS]
+        self.direction = (self.end - self.start) / self.length
+        self.direction_lateral = np.array([-self.direction[1], self.direction[0]])
+        self.forbidden = True
+        self.pattern = PatternType.PARALLEL_LINES
+

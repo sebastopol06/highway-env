@@ -14,3 +14,8 @@ register(
     id='highway-roundabout-v0',
     entry_point='highway_env.envs:RoundaboutEnv',
 )
+
+register(
+    id='pomdp-v0',
+    entry_point='highway_env.envs:Pomdp',
+)

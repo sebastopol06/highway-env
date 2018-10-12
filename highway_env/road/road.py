@@ -4,9 +4,9 @@ import pandas as pd
 from gym import logger
 
 from highway_env.logger import Loggable
-from highway_env.road.lane import LineType, StraightLane
+from highway_env.road.lane import LineType, StraightLane, PedestrianLane
 from highway_env.vehicle.control import ControlledVehicle
-from highway_env.vehicle.dynamics import Obstacle
+from highway_env.vehicle.dynamics import Obstacle, Occlusion
 
 
 class RoadNetwork(object):

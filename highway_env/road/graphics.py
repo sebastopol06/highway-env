@@ -2,9 +2,8 @@ from __future__ import division, print_function
 import numpy as np
 import pygame
 
-from highway_env.road.lane import LineType
+from highway_env.road.lane import LineType, PatternType
 from highway_env.vehicle.graphics import VehicleGraphics
-
 
 class LaneGraphics(object):
     """
@@ -106,6 +105,15 @@ class LaneGraphics(object):
                                  (surface.vec2pix(lane.position(ends[k], lats[k]))),
                                  max(surface.pix(cls.STRIPE_WIDTH), 1))
 
+    @classmethod
+    def fill_white(cls, lane, surface, starts, ends, lats):
+        """
+						Fill the whole lane in white.
+				"""
+        starts = np.clip(starts, 0, lane.length)
+        ends = np.clip(ends, 0, lane.length)
+        pygame.draw.fill(surface, surface.WHITE)
+
 
 class RoadGraphics(object):
     """
@@ -123,6 +131,11 @@ class RoadGraphics(object):
         for _from in road.network.graph.keys():
             for _to in road.network.graph[_from].keys():
                 for l in road.network.graph[_from][_to]:
+                    # if hasattr(l, 'pattern') and  l.pattern != PatternType.NONE:
+                    #     Lane only -> WHITE
+                    # else:
+                    #     Lane only -> GREY
+                    # LaneGraphics.fill_white(l, surface)
                     LaneGraphics.display(l, surface)
 
     @classmethod

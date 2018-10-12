@@ -13,7 +13,7 @@ class EnvViewer(object):
     """
         A viewer to render a highway driving environment.
     """
-    SCREEN_WIDTH = 600
+    SCREEN_WIDTH = 1500#600
     SCREEN_HEIGHT = 150
 
     def __init__(self, env):

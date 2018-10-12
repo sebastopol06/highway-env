@@ -214,3 +214,13 @@ class Obstacle(Vehicle):
         super(Obstacle, self).__init__(road, position, velocity=0)
         self.target_velocity = 0
         self.LENGTH = self.WIDTH
+
+class Occlusion(Vehicle):
+    """
+        A motionless complex obstacle at a given position, leading to occlusion
+    """
+
+    def __init__(self, road, position, size):#, points):
+        super(Occlusion, self).__init__(road, position, velocity=0) # , points, velocity=0)
+        self.target_velocity = 0
+        self.LENGTH, self.WIDTH = size
